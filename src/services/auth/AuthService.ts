@@ -1,24 +1,24 @@
-import AuthService from 'contracts/services/auth/AuthService';
-import NewUser from 'contracts/services/auth/NewUser';
-import User from 'contracts/domain/User';
-import AuthCredentials from 'contracts/services/auth/AuthCredentials';
-import AuthenticatedUser from 'contracts/services/auth/AuthenticatedUser';
-import Container from 'contracts/ioc/Container';
-import UserRepository from 'contracts/repositories/UserRepository';
-import Hasher from 'contracts/services/hash/Hasher';
+import IAuthService from './IAuthService';
+import INewUser from './INewUser';
+import IUser from '../../domain/IUser';
+import IAuthCredentials from './IAuthCredentials';
+import IAuthenticatedUser from './IAuthenticatedUser';
+import IContainer from '../../ioc/IContainer';
+import IUserRepository from '../../infrastructure/repositories/IUserRepository';
+import IHasher from '../../services/hash/IHasher';
 
-export default class implements AuthService {
-  private userRepository: UserRepository;
-  private authenticatedUsers: AuthenticatedUser[] = [];
-  private hasher: Hasher;
+export default class implements IAuthService {
+  private userRepository: IUserRepository;
+  private authenticatedUsers: IAuthenticatedUser[] = [];
+  private hasher: IHasher;
 
-  constructor(container: Container) {
-    this.userRepository = <UserRepository>container.resolve('userRepository');
-    this.hasher = <Hasher>container.resolve('hasher');
+  constructor(container: IContainer) {
+    this.userRepository = <IUserRepository>container.resolve('userRepository');
+    this.hasher = <IHasher>container.resolve('hasher');
   }
 
-  async register(newUser: NewUser) {
-    let user: User = {
+  async register(newUser: INewUser) {
+    let user: IUser = {
       firstName: newUser.firstName,
       lastName: newUser.lastName,
       email: newUser.email,
@@ -26,7 +26,7 @@ export default class implements AuthService {
     };
 
     user = await this.userRepository.save(user);
-    const authenticatedUser: AuthenticatedUser = {
+    const authenticatedUser: IAuthenticatedUser = {
       user,
       auth: this.createAuthCrendetials()
     };
@@ -35,7 +35,7 @@ export default class implements AuthService {
     return authenticatedUser;
   }
 
-  async auth(credentials: AuthCredentials) {
+  async auth(credentials: IAuthCredentials) {
     const authenticated = this.findByToken(credentials.token);
     if (!authenticated) {
       throw new Error(`Failed to authenticate user by using token: ${credentials.token}`);
@@ -59,7 +59,7 @@ export default class implements AuthService {
       return alreadyAuthenticatedUser;
     }
 
-    const authenticatedUser: AuthenticatedUser = {
+    const authenticatedUser: IAuthenticatedUser = {
       user,
       auth: this.createAuthCrendetials()
     };
@@ -68,7 +68,7 @@ export default class implements AuthService {
     return authenticatedUser;
   }
 
-  async logout(credentials: AuthCredentials) {
+  async logout(credentials: IAuthCredentials) {
     const alreadyAuthenticatedUser = this.findByToken(credentials.token);
     if (!alreadyAuthenticatedUser) {
       throw new Error('Logout failed!');
@@ -87,7 +87,7 @@ export default class implements AuthService {
     return this.authenticatedUsers.find(au => au.user.id === id);
   }
 
-  private createAuthCrendetials(): AuthCredentials {
+  private createAuthCrendetials(): IAuthCredentials {
     return {
       token: this.generateRandomString()
     }

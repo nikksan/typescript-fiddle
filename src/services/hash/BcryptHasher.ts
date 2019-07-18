@@ -1,7 +1,7 @@
 import bcrypt from 'bcrypt';
-import Hasher from 'contracts/services/hash/Hasher';
+import IHasher from './IHasher';
 
-class BcryptHasher implements Hasher {
+class BcryptHasher implements IHasher {
   private saltRounds: number;
 
   constructor(saltRounds = 10) {

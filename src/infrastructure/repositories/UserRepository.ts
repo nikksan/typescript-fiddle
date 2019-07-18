@@ -1,11 +1,11 @@
 import uuid from 'uuid';
-import UserRepository from 'contracts/repositories/UserRepository';
-import User from 'contracts/domain/User';
+import IUserRepository from './IUserRepository';
+import IUser from '../../domain/IUser';
 
-export default class implements UserRepository {
-  private users: User[] = [];
+export default class implements IUserRepository {
+  private users: IUser[] = [];
 
-  public async save(user: User) {
+  public async save(user: IUser) {
     if (user.id) {
       if (await this.findById(user.id)) {
         return this.update(user);
@@ -29,14 +29,14 @@ export default class implements UserRepository {
     return this.findByField('email', email);
   }
 
-  private create(user: User) {
+  private create(user: IUser) {
     user.id = uuid();
     this.users.push(user);
 
     return user;
   }
 
-  private update(user: User) {
+  private update(user: IUser) {
     this.users = this.users.map(u => u.id === user.id ? user : u);
     return user;
   }

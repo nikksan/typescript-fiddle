@@ -1,7 +1,7 @@
-import AuthService from 'contracts/services/auth/AuthService';
-import container from 'root';
+import IAuthService from './services/auth/IAuthService';
+import container from './root';
 
-const authService = <AuthService>container.resolve('authService');
+const authService = <IAuthService>container.resolve('authService');
 
 (async () => {
   await authService.register({
@@ -19,4 +19,6 @@ const authService = <AuthService>container.resolve('authService');
     password: 'asd123',
     confirmPassword: 'asd123'
   });
+
+  console.log(authService);
 })();
