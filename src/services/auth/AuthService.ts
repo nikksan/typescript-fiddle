@@ -3,7 +3,6 @@ import INewUser from './INewUser';
 import IUser from '../../domain/IUser';
 import IAuthCredentials from './IAuthCredentials';
 import IAuthenticatedUser from './IAuthenticatedUser';
-import IContainer from '../../ioc/IContainer';
 import IUserRepository from '../../infrastructure/repositories/IUserRepository';
 import IHasher from '../../services/hash/IHasher';
 
@@ -12,9 +11,9 @@ export default class implements IAuthService {
   private authenticatedUsers: IAuthenticatedUser[] = [];
   private hasher: IHasher;
 
-  constructor(container: IContainer) {
-    this.userRepository = <IUserRepository>container.resolve('userRepository');
-    this.hasher = <IHasher>container.resolve('hasher');
+  constructor(deps: any) {
+    this.userRepository = deps.userRepository;
+    this.hasher = deps.hasher;
   }
 
   async register(newUser: INewUser) {

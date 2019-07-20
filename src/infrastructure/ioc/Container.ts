@@ -31,19 +31,26 @@ export default class BaseContainer implements IContainer {
     const component = this.modules.find(module => module.name === name);
     if (component.isSingleton) {
       if (!component.instance) {
-        const deps:any = {};
-        if (component.deps) {
-          for (const dep of component.deps) {
-            deps[dep] = this.resolve(dep);
-          }
-        }
-        component.instance = new component.definition(deps);
+         const args = component.deps && component.deps.length ?
+           this.resolveDeps(component.deps) :
+           undefined;
+
+         component.instance = new component.definition(args);
       }
       
       return component.instance;
     }
 
     return component.definition;
+  }
+
+  private resolveDeps(deps: string[]) {
+    const depsObj:any = {};
+    for (const dep of deps) {
+      depsObj[dep] = this.resolve(dep);
+    }
+
+    return depsObj;
   }
 
   private has(name: string) {

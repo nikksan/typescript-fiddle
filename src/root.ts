@@ -1,17 +1,12 @@
-import Container from './ioc/Container';
+import Container from './infrastructure/ioc/Container';
 import UserRepository from './infrastructure/repositories/UserRepository';
 import AuthService from './services/auth/AuthService';
 import Hasher from './services/hash/BcryptHasher';
 
 const container = new Container();
 
-const hasher = new Hasher();
-container.register('hasher', hasher);
-
-const userRepository = new UserRepository();
-container.register('userRepository', userRepository);
-
-const authService = new AuthService(container);
-container.register('authService', authService);
+container.singleton('hasher', Hasher);
+container.singleton('userRepository', UserRepository);
+container.singleton('authService', AuthService, ['userRepository', 'hasher']);
 
 export default container;
