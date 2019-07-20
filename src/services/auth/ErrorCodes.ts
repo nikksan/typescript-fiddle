@@ -1,6 +1,0 @@
-export default {
-  INVALID_TOKEN: 1,
-  INVALID_EMAIL: 2,
-  INVALID_PASSWORD: 3,
-  USER_NOT_LOGGED_IN: 4,
-}

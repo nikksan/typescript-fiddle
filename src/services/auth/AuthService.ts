@@ -1,8 +1,5 @@
-import IAuthService from './IAuthService';
-import INewUser from './INewUser';
+import IAuthService, { IAuthCredentials, IAuthenticatedUser} from './IAuthService';
 import IUser from '../../domain/IUser';
-import IAuthCredentials from './IAuthCredentials';
-import IAuthenticatedUser from './IAuthenticatedUser';
 import IUserRepository from '../../infrastructure/repositories/IUserRepository';
 import IHasher from '../../services/hash/IHasher';
 
@@ -14,24 +11,6 @@ export default class implements IAuthService {
   constructor(deps: any) {
     this.userRepository = deps.userRepository;
     this.hasher = deps.hasher;
-  }
-
-  async register(newUser: INewUser) {
-    let user: IUser = {
-      firstName: newUser.firstName,
-      lastName: newUser.lastName,
-      email: newUser.email,
-      password: this.hasher.make(newUser.password)
-    };
-
-    user = await this.userRepository.save(user);
-    const authenticatedUser: IAuthenticatedUser = {
-      user,
-      auth: this.createAuthCrendetials()
-    };
-
-    this.authenticatedUsers.push(authenticatedUser);
-    return authenticatedUser;
   }
 
   async auth(credentials: IAuthCredentials) {

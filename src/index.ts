@@ -1,24 +1,16 @@
-import IAuthService from './services/auth/IAuthService';
+import IRegistrationService from './infrastructure/services/registration/IRegistrationService';
 import container from './root';
 
-const authService = <IAuthService>container.resolve('authService');
+const registrationService = <IRegistrationService>container.resolve('registrationService');
 
 (async () => {
-  await authService.register({
+  await registrationService.register({
     firstName: 'Nikola',
     lastName: 'Mihaylov',
     email: 'nikksanus@gmail.com',
     password: 'asd123',
     confirmPassword: 'asd123'
   });
-
-  await authService.register({
-    firstName: 'Nikola1',
-    lastName: 'Mihaylov2',
-    email: 'nikksanus@gmail.com',
-    password: 'asd123',
-    confirmPassword: 'asd123'
-  });
-
-  console.log(authService);
+  
+  console.log(registrationService);
 })();
