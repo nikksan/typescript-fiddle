@@ -1,19 +1,19 @@
-import IAuthService, { IAuthCredentials, IAuthenticatedUser} from './IAuthService';
-import IUser from '../../domain/IUser';
-import IUserRepository from '../../infrastructure/repositories/IUserRepository';
-import IHasher from '../../services/hash/IHasher';
+import AuthService, { AuthCredentials, AuthenticatedUser} from './AuthService';
+import User from '../../domain/User/User';
+import UserRepository from '../../domain/User/UserRepository';
+import Hasher from '../hash/Hasher';
 
-export default class implements IAuthService {
-  private userRepository: IUserRepository;
-  private authenticatedUsers: IAuthenticatedUser[] = [];
-  private hasher: IHasher;
+class BaseAuthService implements AuthService {
+  private userRepository: UserRepository;
+  private authenticatedUsers: AuthenticatedUser[] = [];
+  private hasher: Hasher;
 
   constructor(deps: any) {
     this.userRepository = deps.userRepository;
     this.hasher = deps.hasher;
   }
 
-  async auth(credentials: IAuthCredentials) {
+  async auth(credentials: AuthCredentials) {
     const authenticated = this.findByToken(credentials.token);
     if (!authenticated) {
       throw new Error(`Failed to authenticate user by using token: ${credentials.token}`);
@@ -28,16 +28,16 @@ export default class implements IAuthService {
       throw new Error('Incorrect email!');
     }
 
-    if (!this.hasher.check(password, user.password)) {
+    if (!this.hasher.check(password, user.getPassword())) {
       throw new Error('Incorrect password!');
     }
 
-    const alreadyAuthenticatedUser = this.findByUserId(user.id);
+    const alreadyAuthenticatedUser = this.findByUserId(user.getId());
     if (alreadyAuthenticatedUser) {
       return alreadyAuthenticatedUser;
     }
 
-    const authenticatedUser: IAuthenticatedUser = {
+    const authenticatedUser: AuthenticatedUser = {
       user,
       auth: this.createAuthCrendetials()
     };
@@ -46,13 +46,13 @@ export default class implements IAuthService {
     return authenticatedUser;
   }
 
-  async logout(credentials: IAuthCredentials) {
+  async logout(credentials: AuthCredentials) {
     const alreadyAuthenticatedUser = this.findByToken(credentials.token);
     if (!alreadyAuthenticatedUser) {
       throw new Error('Logout failed!');
     }
 
-    this.authenticatedUsers = this.authenticatedUsers.filter(au => au.user.id !== alreadyAuthenticatedUser.user.id);
+    this.authenticatedUsers = this.authenticatedUsers.filter(au => !au.user.equals(alreadyAuthenticatedUser.user));
 
     return true;
   }
@@ -62,10 +62,10 @@ export default class implements IAuthService {
   }
 
   private findByUserId(id: string | number) {
-    return this.authenticatedUsers.find(au => au.user.id === id);
+    return this.authenticatedUsers.find(au => au.user.getId() === id);
   }
 
-  private createAuthCrendetials(): IAuthCredentials {
+  private createAuthCrendetials(): AuthCredentials {
     return {
       token: this.generateRandomString()
     }
@@ -81,3 +81,5 @@ export default class implements IAuthService {
     return result;
   }
 }
+
+export default BaseAuthService;

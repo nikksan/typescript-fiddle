@@ -1,7 +1,7 @@
-import IRegistrationService from './infrastructure/services/registration/IRegistrationService';
+import RegistrationService from './application/registration/RegistrationService';
 import container from './root';
 
-const registrationService = <IRegistrationService>container.resolve('registrationService');
+const registrationService = <RegistrationService>container.resolve('registrationService');
 
 (async () => {
   await registrationService.register({
@@ -11,6 +11,6 @@ const registrationService = <IRegistrationService>container.resolve('registratio
     password: 'asd123',
     confirmPassword: 'asd123'
   });
-  
+
   console.log(registrationService);
 })();

@@ -1,8 +1,8 @@
-import Container from './infrastructure/ioc/Container';
-import UserRepository from './infrastructure/repositories/UserRepository';
-import AuthService from './services/auth/AuthService';
-import Hasher from './services/hash/BcryptHasher';
-import RegistrationService from './infrastructure/services/registration/RegistrationService';
+import Container from './infrastructure/ioc/BaseContainer';
+import UserRepository from './infrastructure/repositories/User/InMemoryUserRepository';
+import AuthService from './application/auth/BaseAuthService';
+import Hasher from './infrastructure/hash/BcryptHasher';
+import RegistrationService from './application/registration/BaseRegistrationService';
 
 const container = new Container();
 

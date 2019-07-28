@@ -1,26 +1,27 @@
-import IUser from '../../../domain/IUser';
-import IUserRepository from '../../repositories/IUserRepository';
-import IRegistrationService, { INewUserDTO } from './IRegistrationService';
-import IHasher from '../../../services/hash/IHasher';
+import User from '../../domain/User/User';
+import UserRepository from '../../domain/User/UserRepository';
+import RegistrationService, { NewUserDTO } from './RegistrationService';
+import Hasher from '../hash/Hasher';
+import Mailer from '../../infrastructure/mail/Mailer';
 
-class RegistrationService implements IRegistrationService {
-	private userRepository: IUserRepository;
-	private hasher: IHasher;
+class BaseRegistrationService implements RegistrationService {
+	private userRepository: UserRepository;
+	private hasher: Hasher;
 
 	constructor(deps: any) {
 		this.userRepository = deps.userRepository;
 		this.hasher = deps.hasher;
 	}
 
-	async register(userDTO: INewUserDTO) {
+	async register(userDTO: NewUserDTO) {
 		await this.validateEmail(userDTO.email);
 	
-		const user: IUser = {
+		const user = new User({
 			firstName: userDTO.firstName,
 		  lastName: userDTO.lastName,
 		  email: userDTO.email,
 		  password: this.hasher.make(userDTO.password)
-		}
+		})
 
 		return this.userRepository.save(user);
 	}
@@ -32,4 +33,4 @@ class RegistrationService implements IRegistrationService {
 	}
 }
 
-export default RegistrationService;
+export default BaseRegistrationService;
