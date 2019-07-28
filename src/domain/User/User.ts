@@ -35,6 +35,10 @@ class User {
 	equals(anotherUser: User) {
 		return this.id === anotherUser.getId();
 	}
+
+	isPersisted() {
+		return !!this.id;
+	}
 }
 
 export default User;
