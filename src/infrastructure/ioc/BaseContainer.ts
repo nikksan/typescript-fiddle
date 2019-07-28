@@ -33,9 +33,12 @@ export default class BaseContainer implements Container {
       if (!component.instance) {
          const args = component.deps && component.deps.length ?
            this.resolveDeps(component.deps) :
-           undefined;
+           false;
 
-         component.instance = new component.definition(args);
+
+         component.instance = args ?
+           new component.definition(...args) :
+           new component.definition();
       }
       
       return component.instance;
@@ -45,12 +48,12 @@ export default class BaseContainer implements Container {
   }
 
   private resolveDeps(deps: string[]) {
-    const depsObj:any = {};
+    const depsArr: any = [];
     for (const dep of deps) {
-      depsObj[dep] = this.resolve(dep);
+      depsArr.push(this.resolve(dep));
     }
 
-    return depsObj;
+    return depsArr;
   }
 
   private has(name: string) {

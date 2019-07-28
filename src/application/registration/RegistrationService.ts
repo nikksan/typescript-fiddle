@@ -1,13 +1,6 @@
 import User from '../../domain/User/User';
-
-export interface NewUserDTO {
-	firstName: string;
-  lastName: string;
-  email: string;
-  password: string;
-  confirmPassword: string;
-}
+import NewUserRequest from './NewUserRequest';
 
 export default interface RegistrationService {
-	register(user: NewUserDTO): Promise<User>;
+	register(user: NewUserRequest): Promise<User>;
 }

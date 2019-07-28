@@ -1,7 +1,9 @@
 import RegistrationService from './application/registration/RegistrationService';
+import UserRepository from './domain/User/UserRepository';
 import container from './root';
 
 const registrationService = <RegistrationService>container.resolve('registrationService');
+const userRepository = <UserRepository>container.resolve('userRepository');
 
 (async () => {
   await registrationService.register({
@@ -12,5 +14,5 @@ const registrationService = <RegistrationService>container.resolve('registration
     confirmPassword: 'asd123'
   });
 
-  console.log(registrationService);
+  console.log(userRepository);
 })();

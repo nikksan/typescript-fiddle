@@ -1,6 +1,6 @@
 import uuid from 'uuid';
-import UserRepository from '../../../domain/User/UserRepository';
-import User from '../../../domain/User/User';
+import UserRepository from '../../../../domain/User/UserRepository';
+import User from '../../../../domain/User/User';
 
 class InMemoryUserRepository implements UserRepository {
   private users: User[] = [];
@@ -30,7 +30,7 @@ class InMemoryUserRepository implements UserRepository {
   }
 
   private create(user: User) {
-    user.setId(uuid());
+    user.setId(this.getNextId());
     this.users.push(user);
 
     return user;
@@ -43,6 +43,10 @@ class InMemoryUserRepository implements UserRepository {
 
   private findByField(field: 'id' | 'email', value:any ) {
     return this.users.find(user => user[field] === value)
+  }
+
+  private getNextId() {
+    return uuid();
   }
 }
 

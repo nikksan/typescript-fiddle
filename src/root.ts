@@ -1,5 +1,5 @@
 import Container from './infrastructure/ioc/BaseContainer';
-import UserRepository from './infrastructure/repositories/User/InMemoryUserRepository';
+import UserRepository from './infrastructure/repositories/InMemory/User/InMemoryUserRepository';
 import AuthService from './application/auth/BaseAuthService';
 import Hasher from './infrastructure/hash/BcryptHasher';
 import RegistrationService from './application/registration/BaseRegistrationService';

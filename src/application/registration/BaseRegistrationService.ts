@@ -1,6 +1,7 @@
 import User from '../../domain/User/User';
 import UserRepository from '../../domain/User/UserRepository';
-import RegistrationService, { NewUserDTO } from './RegistrationService';
+import RegistrationService from './RegistrationService';
+import NewUserRequest from './NewUserRequest';
 import Hasher from '../hash/Hasher';
 import Mailer from '../../infrastructure/mail/Mailer';
 
@@ -8,19 +9,19 @@ class BaseRegistrationService implements RegistrationService {
 	private userRepository: UserRepository;
 	private hasher: Hasher;
 
-	constructor(deps: any) {
-		this.userRepository = deps.userRepository;
-		this.hasher = deps.hasher;
+	constructor(userRepository: UserRepository, hasher: Hasher) {
+		this.userRepository = userRepository;
+		this.hasher = hasher;
 	}
 
-	async register(userDTO: NewUserDTO) {
-		await this.validateEmail(userDTO.email);
+	async register(userReq: NewUserRequest) {
+		await this.validateEmail(userReq.email);
 	
 		const user = new User({
-			firstName: userDTO.firstName,
-		  lastName: userDTO.lastName,
-		  email: userDTO.email,
-		  password: this.hasher.make(userDTO.password)
+			firstName: userReq.firstName,
+		  lastName: userReq.lastName,
+		  email: userReq.email,
+		  password: this.hasher.make(userReq.password)
 		})
 
 		return this.userRepository.save(user);

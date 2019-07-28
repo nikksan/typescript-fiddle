@@ -8,9 +8,9 @@ class BaseAuthService implements AuthService {
   private authenticatedUsers: AuthenticatedUser[] = [];
   private hasher: Hasher;
 
-  constructor(deps: any) {
-    this.userRepository = deps.userRepository;
-    this.hasher = deps.hasher;
+  constructor(userRepository: UserRepository, hasher: Hasher) {
+    this.userRepository = userRepository;
+    this.hasher = hasher;
   }
 
   async auth(credentials: AuthCredentials) {

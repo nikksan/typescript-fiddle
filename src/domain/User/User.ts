@@ -6,15 +6,14 @@ class User {
 	private password: string;
 
 	constructor(dto: any) {
-		this.id = dto.id;
+		if (dto.id !== undefined) {
+			this.setId(dto.id);
+		}
+		
 		this.firstName = dto.firstName;
 		this.lastName = dto.lastName;
 		this.email = dto.email;
-		this.password = dto.password;
-	}
-
-	equals(anotherUser: User) {
-		return this.id === anotherUser.getId();
+		this.setPassword(dto.password);
 	}
 
 	getId() {
@@ -30,7 +29,11 @@ class User {
 	}
 
 	setPassword(password: string) {
-		this.setPassword(password);
+		this.password = password;
+	}
+
+	equals(anotherUser: User) {
+		return this.id === anotherUser.getId();
 	}
 }
 
