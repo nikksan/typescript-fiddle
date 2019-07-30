@@ -7,8 +7,8 @@ import User from '../../domain/User/User';
 import UserRepository from '../../domain/User/UserRepository';
 import Hasher from '../hash/Hasher';
 
-class SqliteAuthService implements AuthService {
-  private db : any;
+class SQLiteAuthService implements AuthService {
+  private db: any;
   private userRepository: UserRepository;
   private table: string;
   private storageProvider: string;
@@ -18,7 +18,7 @@ class SqliteAuthService implements AuthService {
 
   constructor(userRepository: UserRepository) {
     this.userRepository = userRepository;
-    
+
     this.table = 'auth';
     this.userColumn = 'userId';
     this.tokenColumn = 'token';
@@ -40,9 +40,9 @@ class SqliteAuthService implements AuthService {
       return row.token;
     }
 
-    let token = this.generateRandomToken();
-    await this.db.run(`INSERT INTO ${this.table} (${this.userColumn}, ${this.tokenColumn}) VALUES (?, ?)`, user.getId(), token)  
-      
+    const token = this.generateRandomToken();
+    await this.db.run(`INSERT INTO ${this.table} (${this.userColumn}, ${this.tokenColumn}) VALUES (?, ?)`, user.getId(), token)
+
     return token;
   }
 
@@ -69,4 +69,4 @@ class SqliteAuthService implements AuthService {
   }
 }
 
-export default SqliteAuthService;
+export default SQLiteAuthService;
