@@ -1,7 +1,9 @@
 export interface Mail {
-	subject : string;
-	body: string;
+  sender: string;
 	receiver: string;
+  subject : string;
+	text: string;
+	html?: string;
 }
 
 export default interface Mailer {

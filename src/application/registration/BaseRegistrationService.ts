@@ -3,7 +3,6 @@ import UserRepository from '../../domain/User/UserRepository';
 import RegistrationService from './RegistrationService';
 import NewUserRequest from './NewUserRequest';
 import Hasher from '../hash/Hasher';
-import Mailer from '../../infrastructure/mail/Mailer';
 
 class BaseRegistrationService implements RegistrationService {
 	private userRepository: UserRepository;
@@ -16,7 +15,7 @@ class BaseRegistrationService implements RegistrationService {
 
 	async register(userReq: NewUserRequest) {
 		await this.validateEmail(userReq.email);
-	
+
 		const user = new User({
 			firstName: userReq.firstName,
 		  lastName: userReq.lastName,

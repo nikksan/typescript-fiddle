@@ -1,11 +1,13 @@
 import RegistrationService from './application/registration/RegistrationService';
 import AuthService from './application/auth/AuthService';
 import UserRepository from './domain/User/UserRepository';
+import Mailer from './application/mail/Mailer';
 import container from './root';
 
 const registrationService = <RegistrationService>container.resolve('registrationService');
 const userRepository = <UserRepository>container.resolve('userRepository');
 const authService = <AuthService>container.resolve('authService');
+const mailer = <Mailer>container.resolve('mailer');
 
 (async () => {
   await registrationService.register({

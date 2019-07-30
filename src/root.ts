@@ -1,14 +1,26 @@
 import Container from './infrastructure/ioc/BaseContainer';
-import UserRepository from './infrastructure/repositories/InMemory/User/InMemoryUserRepository';
-import AuthService from './application/auth/SQLiteAuthService';
-import Hasher from './infrastructure/hash/BcryptHasher';
-import RegistrationService from './application/registration/BaseRegistrationService';
+
+import HasherProvider from './infrastructure/ioc/providers/HasherProvider';
+import AuthServiceProvider from './infrastructure/ioc/providers/AuthServiceProvider';
+import MailerProvider from './infrastructure/ioc/providers/MailerProvider';
+import RegistrationServiceProvider from './infrastructure/ioc/providers/RegistrationServiceProvider';
+import UserRepositoryProvider from './infrastructure/ioc/providers/UserRepositoryProvider';
 
 const container = new Container();
 
-container.singleton('registrationService', RegistrationService, ['userRepository', 'hasher']);
-container.singleton('hasher', Hasher);
-container.singleton('userRepository', UserRepository);
-container.singleton('authService', AuthService, ['userRepository', 'hasher']);
+const hasherProvider = new HasherProvider();
+hasherProvider.provide(container);
+
+const mailerProvider = new MailerProvider();
+mailerProvider.provide(container);
+
+const userRepositoryProvider = new UserRepositoryProvider();
+userRepositoryProvider.provide(container);
+
+const authServiceProvider = new AuthServiceProvider();
+authServiceProvider.provide(container);
+
+const registrationServiceProvider = new RegistrationServiceProvider();
+registrationServiceProvider.provide(container);
 
 export default container;

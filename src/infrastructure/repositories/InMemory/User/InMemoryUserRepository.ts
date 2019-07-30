@@ -3,7 +3,11 @@ import UserRepository from '../../../../domain/User/UserRepository';
 import User from '../../../../domain/User/User';
 
 class InMemoryUserRepository implements UserRepository {
-  private users: User[] = [];
+  private users: User[];
+
+  constructor() {
+    this.users = [];
+  }
 
   public async save(user: User) {
     if (user.getId()) {
