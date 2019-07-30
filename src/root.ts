@@ -8,19 +8,11 @@ import UserRepositoryProvider from './infrastructure/ioc/providers/UserRepositor
 
 const container = new Container();
 
-const hasherProvider = new HasherProvider();
-hasherProvider.provide(container);
-
-const mailerProvider = new MailerProvider();
-mailerProvider.provide(container);
-
-const userRepositoryProvider = new UserRepositoryProvider();
-userRepositoryProvider.provide(container);
-
-const authServiceProvider = new AuthServiceProvider();
-authServiceProvider.provide(container);
-
-const registrationServiceProvider = new RegistrationServiceProvider();
-registrationServiceProvider.provide(container);
+container.bootstrapProvider(HasherProvider);
+container.bootstrapProvider(MailerProvider);
+container.bootstrapProvider(UserRepositoryProvider);
+container.bootstrapProvider(AuthServiceProvider);
+container.bootstrapProvider(RegistrationServiceProvider);
 
 export default container;
+

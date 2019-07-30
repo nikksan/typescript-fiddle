@@ -1,13 +1,14 @@
+import Provider from './providers/Provider';
+
 export interface Module {
-  // isSingleton: boolean,
   name: string,
   definition: any,
-  // deps?: string[],
-  // instance?: any,
 }
+
+type Newable<T> = { new (...args: any[]): T; };
 
 export default interface Container {
   register(name: string, definition: any): void;
-  // singleton(name: string, definition: any, deps?: string[]): void;
   resolve(name: string): any;
+  bootstrapProvider(SomeProvider: Newable<Provider>): void;
 };
