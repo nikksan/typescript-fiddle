@@ -64,7 +64,7 @@ class SQLiteAuthService implements AuthService {
     }
   }
 
-  generateRandomToken() {
+  private generateRandomToken() {
     return `${uuid()}-${uuid()}`;
   }
 }

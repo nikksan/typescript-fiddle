@@ -1,27 +1,30 @@
-class User {
-	private id: string;
+import Entity from '../Entity';
+
+class User extends Entity {
 	private firstName: string;
 	private lastName: string;
 	private email: string;
 	private password: string;
 
 	constructor(dto: any) {
-		if (dto.id !== undefined) {
-			this.setId(dto.id);
-		}
-		
+		super(dto);
+
 		this.firstName = dto.firstName;
 		this.lastName = dto.lastName;
 		this.email = dto.email;
 		this.setPassword(dto.password);
 	}
 
-	getId() {
-		return this.id;
+	getFirstName() {
+		return this.firstName;
 	}
 
-	setId(id: string) {
-		this.id = id;
+	getLastName() {
+		return this.lastName;
+	}
+
+	getEmail() {
+		return this.email;
 	}
 
 	getPassword() {
@@ -30,14 +33,6 @@ class User {
 
 	setPassword(password: string) {
 		this.password = password;
-	}
-
-	equals(anotherUser: User) {
-		return this.id === anotherUser.getId();
-	}
-
-	isPersisted() {
-		return !!this.id;
 	}
 }
 
