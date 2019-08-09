@@ -1,7 +1,7 @@
 import RegistrationService from './application/registration/RegistrationService';
 import AuthService from './application/auth/AuthService';
 import UserRepository from './domain/User/UserRepository';
-import Mailer from './application/mail/Mailer';
+import Mailer from './infrastructure/mail/Mailer';
 import container from './root';
 
 const registrationService = <RegistrationService>container.resolve('registrationService');

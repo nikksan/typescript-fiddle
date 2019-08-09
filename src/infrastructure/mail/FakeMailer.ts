@@ -1,4 +1,4 @@
-import Mailer, { Mail } from '../../application/mail/Mailer';
+import Mailer, { Mail } from './Mailer';
 
 class FakeMailer implements Mailer {
 	async send(mail: Mail) {

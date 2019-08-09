@@ -2,10 +2,9 @@ import { Database } from 'sqlite3';
 import { promisifyAll } from 'bluebird';
 import uuid from 'uuid';
 
-import AuthService from './AuthService';
-import User from '../../domain/User/User';
-import UserRepository from '../../domain/User/UserRepository';
-import Hasher from '../hash/Hasher';
+import AuthService from './../AuthService';
+import User from '../../../domain/User/User';
+import UserRepository from '../../../domain/User/UserRepository';
 
 class SQLiteAuthService implements AuthService {
   private db: any;
@@ -65,7 +64,7 @@ class SQLiteAuthService implements AuthService {
   }
 
   private generateRandomToken() {
-    return `${uuid()}-${uuid()}`;
+    return uuid();
   }
 }
 

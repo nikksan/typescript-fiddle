@@ -2,7 +2,7 @@ import User from '../../domain/User/User';
 import UserRepository from '../../domain/User/UserRepository';
 import RegistrationService from './RegistrationService';
 import NewUserRequest from './NewUserRequest';
-import Hasher from '../hash/Hasher';
+import Hasher from '../../infrastructure/hash/Hasher';
 
 class BaseRegistrationService implements RegistrationService {
 	private userRepository: UserRepository;
