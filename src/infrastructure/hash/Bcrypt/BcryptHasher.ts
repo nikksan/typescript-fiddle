@@ -1,5 +1,5 @@
 import bcrypt from 'bcrypt';
-import Hasher from './Hasher';
+import Hasher from '../Hasher';
 
 class BcryptHasher implements Hasher {
   private saltRounds: number;

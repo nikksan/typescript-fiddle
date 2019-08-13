@@ -1,7 +1,7 @@
 import Mailgun from 'mailgun-js';
-import Mailer, { Mail } from './Mailer';
-import ClientError from './errors/ClientError';
-import TransportError from './errors/TransportError';
+import Mailer, { Mail } from '../Mailer';
+import ClientError from '../errors/ClientError';
+import TransportError from '../errors/TransportError';
 
 class MailgunMailer implements Mailer {
   private client: Mailgun.Mailgun;

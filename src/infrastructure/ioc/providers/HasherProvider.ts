@@ -1,6 +1,6 @@
 import Provider from './Provider';
 import Container from '../Container';
-import BcryptHasher from '../../hash/BcryptHasher';
+import BcryptHasher from '../../hash/Bcrypt/BcryptHasher';
 
 class HasherProvider implements Provider {
   provide(container: Container) {

@@ -1,6 +1,6 @@
 import Provider from './Provider';
 import Container from '../Container';
-import MailgunMailer from '../../mail/MailgunMailer';
+import MailgunMailer from '../../mail/Mailgun/MailgunMailer';
 
 class MailerProvider implements Provider {
   provide(container: Container) {

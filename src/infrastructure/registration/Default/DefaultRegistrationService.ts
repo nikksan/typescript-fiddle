@@ -1,8 +1,8 @@
-import User from '../../domain/User/User';
-import UserRepository from '../../domain/User/UserRepository';
-import RegistrationService from './RegistrationService';
-import Hasher from '../../infrastructure/hash/Hasher';
-import NewUserRequest from './NewUserRequest';
+import User from '../../../domain/User/User';
+import UserRepository from '../../../domain/User/UserRepository';
+import RegistrationService from './../RegistrationService';
+import Hasher from '../../../infrastructure/hash/Hasher';
+import NewUserRequest from './../NewUserRequest';
 
 class BaseRegistrationService implements RegistrationService {
 	private userRepository: UserRepository;
