@@ -1,5 +1,5 @@
-import RegistrationService from './application/registration/RegistrationService';
-import AuthService from './application/auth/AuthService';
+import RegistrationService from './infrastructure/registration/RegistrationService';
+import AuthService from './infrastructure/auth/AuthService';
 import UserRepository from './domain/User/UserRepository';
 import Mailer from './infrastructure/mail/Mailer';
 import container from './root';

@@ -1,8 +1,8 @@
 import User from '../../domain/User/User';
 import UserRepository from '../../domain/User/UserRepository';
 import RegistrationService from './RegistrationService';
-import NewUserRequest from './NewUserRequest';
 import Hasher from '../../infrastructure/hash/Hasher';
+import NewUserRequest from './NewUserRequest';
 
 class BaseRegistrationService implements RegistrationService {
 	private userRepository: UserRepository;
@@ -21,7 +21,7 @@ class BaseRegistrationService implements RegistrationService {
 		  lastName: userReq.lastName,
 		  email: userReq.email,
 		  password: this.hasher.make(userReq.password)
-		})
+		});
 
 		return this.userRepository.save(user);
 	}
@@ -34,3 +34,4 @@ class BaseRegistrationService implements RegistrationService {
 }
 
 export default BaseRegistrationService;
+

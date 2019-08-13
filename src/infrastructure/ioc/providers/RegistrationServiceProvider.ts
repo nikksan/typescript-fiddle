@@ -2,7 +2,7 @@ import Provider from './Provider';
 import Container from '../Container';
 import UserRepository from '../../../domain/User/UserRepository';
 import Hasher from '../../hash/Hasher';
-import BaseRegistrationService from '../../../application/registration/BaseRegistrationService';
+import BaseRegistrationService from '../../registration/BaseRegistrationService';
 
 class RegistrationServiceProvider implements Provider {
   provide(container: Container) {
