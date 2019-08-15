@@ -1,6 +1,6 @@
 import assert from 'assert';
-import Container, { Module } from '../Container';
-import Provider from '../providers/Provider';
+import Container, { Module } from '../../Container';
+import Provider from '../../providers/Provider';
 
 type Newable<T> = { new (...args: any[]): T; };
 

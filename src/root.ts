@@ -1,4 +1,4 @@
-import Container from './infrastructure/ioc/Default/DefaultContainer';
+import Container from './infrastructure/ioc/container/Default/DefaultContainer';
 import HasherProvider from './infrastructure/ioc/providers/HasherProvider';
 import AuthServiceProvider from './infrastructure/ioc/providers/AuthServiceProvider';
 import MailerProvider from './infrastructure/ioc/providers/MailerProvider';

@@ -1,4 +1,4 @@
-import RegistrationService from './infrastructure/registration/RegistrationService';
+import RegistrationService from './application/registration/RegistrationService';
 import AuthService from './infrastructure/auth/AuthService';
 import UserRepository from './domain/User/UserRepository';
 import Mailer from './infrastructure/mail/Mailer';
