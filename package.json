@@ -29,7 +29,7 @@
     "@types/uuid": "^3.4.5",
     "bcrypt": "^3.0.6",
     "bluebird": "^3.5.5",
-    "knex": "^0.19.1",
+    "knex": "^2.4.0",
     "mailgun-js": "^0.22.0",
     "node-cache": "^4.2.1",
     "sqlite3": "^4.0.9",
